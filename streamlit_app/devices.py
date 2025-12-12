@@ -1,8 +1,11 @@
 import os
 
 from tinydb import TinyDB, Query
-from serializer import serializer
+import serializer
 
+"""
+Finished
+"""
 
 class Device():
     # Class variable that is shared between all instances of the class
