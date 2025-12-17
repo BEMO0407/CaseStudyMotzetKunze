@@ -1,6 +1,6 @@
 import os
-from tinydb import TinyDB, Query
-from serializer import serializer
+from tinydb import TinyDB
+from streamlit_app.serializer import serializer
 
 def find_devices() -> list:
     """Find all devices in the database."""
