@@ -1,7 +1,7 @@
 import os
 
 from tinydb import TinyDB, Query
-import serializer
+from serializer import serializer
 
 """
 Finished
