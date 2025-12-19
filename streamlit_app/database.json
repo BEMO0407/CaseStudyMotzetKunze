@@ -19,6 +19,11 @@
       "device_name": "Device4",
       "managed_by_user_id": "two@mci.edu",
       "is_active": true
+    },
+    "5": {
+      "device_name": "Laptop Chris",
+      "managed_by_user_id": "nutzer@mci4me.de",
+      "is_active": true
     }
   },
   "devices_with_subclass": {
