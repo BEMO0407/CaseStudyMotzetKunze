@@ -1,1 +1,1 @@
-{"users": {"1": {"user_name": "christian", "user_email": "chk.kunze@mci4me.at"}}, "devices": {"1": {"device_name": "christians laptop", "managed_by_user_id": "chk.kunze@mci4me.at", "is_active": true}}}
+{"users": {"1": {"user_name": "christian", "user_email": "chk.kunze@mci4me.at"}, "2": {"user_name": "ger\u00e4t1", "user_email": "benediktmotzet@gmx.de"}}, "devices": {"1": {"device_name": "christians laptop", "managed_by_user_id": "chk.kunze@mci4me.at", "is_active": true}}}
