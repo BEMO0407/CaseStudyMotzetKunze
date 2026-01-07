@@ -1,5 +1,5 @@
 import streamlit as st
-import devices
+import devices, users
 
 # Grundeinstellungen für die Seite
 st.set_page_config(page_title="Geräteverwaltung", layout="centered")
@@ -75,10 +75,44 @@ elif main_page == "Nutzer-Verwaltung":
     )
 
     if sub_page == "Nutzer anlegen":
-        st.write("Hier kommt später das Formular zum Anlegen von Nutzern hin. (Placeholder)")
-    elif sub_page == "Nutzer-Liste anzeigen":
-        st.write("Hier steht später eine Übersicht aller Nutzer. (Placeholder)")
+        st.write("### Neuen Nutzer hinzufügen")
+        with st.form("user_form", clear_on_submit=True):
+            u_name = st.text_input("Name des Nutzers")
+            u_mail = st.text_input("E-Mail Adresse")
 
+            submit_user = st.form_submit_button("Nutzer speichern")
+
+            if submit_user:
+                if u_name and u_mail:
+                    new_user = users.User(user_name=u_name, user_email=u_mail)
+                    new_user.store_data()
+                    st.success(f"Nutzer {u_name} wurde angelegt.")
+                else:
+                    st.error("Bitte alle Felder ausfüllen.")
+
+    elif sub_page == "Nutzer-Liste anzeigen":
+        st.write("### Übersicht aller Nutzer")
+        all_users = users.User.find_all()
+
+        if all_users:
+            for u in all_users:
+                with st.expander(f"{u.user_name} ({u.user_email})"):
+                    # Hier suchen wir die zugehörigen Geräte aus der Device-DB
+                    user_devices = devices.Device.find_by_attribute("managed_by_user_id", u.user_email,
+                                                                    num_to_return=10)
+
+                    if user_devices:
+                        st.write("**Zugeordnete Geräte:**")
+                        # Falls nur ein Gerät gefunden wird, ist es kein Array (wegen deiner find_by_attribute Logik)
+                        if isinstance(user_devices, list):
+                            for d in user_devices:
+                                st.write(f"- {d.device_name}")
+                        else:
+                            st.write(f"- {user_devices.device_name}")
+                    else:
+                        st.info("Diesem Nutzer sind aktuell keine Geräte zugeordnet.")
+        else:
+            st.info("Keine Nutzer gefunden.")
 elif main_page == "Reservierungssystem":
     sub_page = st.radio(
         "Aktion auswählen:",
@@ -102,3 +136,4 @@ elif main_page == "Wartungs-Management":
         st.write("Hier planst du zukünftige Wartungen. (Placeholder)")
     elif sub_page == "Wartungshistorie anzeigen":
         st.write("Hier wird die Wartungshistorie angezeigt. (Placeholder)")
+
